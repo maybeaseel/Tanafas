@@ -25,6 +25,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IAppNavigator, ShellAppNavigator>();
 
         // ViewModels (one per page, added page by page)
+        builder.Services.AddTransient<SignInViewModel>();
 
         // Pages
         builder.Services.AddTransient<SignInPage>();
