@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Tanaffas.Views.SignInPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="تسجيل الدخول"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
+
+    <VerticalStackLayout Padding="24" Spacing="16">
+        <Label Style="{StaticResource Heading}" Text="تسجيل الدخول" />
+        <Label Text="Placeholder: this page is added in its own commit." />
+        <Button Style="{StaticResource PrimaryButton}" Text="متابعة" Clicked="OnContinue" />
+    </VerticalStackLayout>
+</ContentPage>
+
