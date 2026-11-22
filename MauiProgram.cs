@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Tanaffas.Services;
+using Tanaffas.ViewModels;
 using Tanaffas.Views;
+
 namespace Tanaffas;
 
 public static class MauiProgram
