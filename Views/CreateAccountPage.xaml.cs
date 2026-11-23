@@ -1,13 +1,13 @@
-﻿namespace Tanaffas.Views;
+﻿using Tanaffas.ViewModels;
+
+namespace Tanaffas.Views;
 
 public partial class CreateAccountPage : ContentPage
 {
-    public CreateAccountPage()
+    public CreateAccountPage(CreateAccountViewModel vm)
     {
         InitializeComponent();
+        BindingContext = vm;
     }
-
-    // Placeholder navigation so the skeleton can be tested. The real page replaces this file.
-    private async void OnContinue(object? sender, EventArgs e) => await Shell.Current.GoToAsync("//main/today");
 }
 

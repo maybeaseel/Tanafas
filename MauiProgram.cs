@@ -26,6 +26,7 @@ public static class MauiProgram
 
         // ViewModels (one per page, added page by page)
         builder.Services.AddTransient<SignInViewModel>();
+        builder.Services.AddTransient<CreateAccountViewModel>();
 
         // Pages
         builder.Services.AddTransient<SignInPage>();
