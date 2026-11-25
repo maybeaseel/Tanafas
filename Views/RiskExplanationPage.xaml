@@ -1,12 +1,60 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Tanaffas.Views.RiskExplanationPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="شرح المخاطر">
+    Title="شرح المخاطر"
+    Shell.TabBarIsVisible="False">
 
-    <VerticalStackLayout Padding="24" Spacing="16">
-        <Label Style="{StaticResource Heading}" Text="شرح المخاطر" />
-        <Label Text="Placeholder: this page is added in its own commit." />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,16,20,24" Spacing="14">
+            <Border Style="{StaticResource Card}"
+                    BackgroundColor="{StaticResource TnfAmberBg}">
+                <VerticalStackLayout Spacing="8">
+                    <Label FontFamily="PlexBold" FontSize="20" Text="{Binding ZoneTitle}"
+                           TextColor="{StaticResource TnfAmber}" />
+                    <Label Text="{Binding ZoneSummary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="الأسباب المسجلة اليوم" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Reasons}" Spacing="6">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding ., StringFormat='• {0}'}" FontFamily="PlexMedium" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="ماذا يمكنك أن تفعل الآن؟" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Steps}" Spacing="6">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding .}" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Style="{StaticResource PrimaryButton}" Text="تسجيل استجابة" Command="{Binding AddLogCommand}" />
+
+            <Border Style="{StaticResource Card}" BackgroundColor="{StaticResource TnfRedBg}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="{Binding EmergencyText}" TextColor="{StaticResource TnfRed}" FontFamily="PlexSemiBold" />
+                    <Label Text="{Binding EmergencyNumber}" TextColor="{StaticResource TnfRed}" FontFamily="PlexBold" FontSize="22"
+                           IsVisible="{Binding HasEmergencyNumber}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Style="{StaticResource Muted}" Text="{Binding Disclaimer}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+
