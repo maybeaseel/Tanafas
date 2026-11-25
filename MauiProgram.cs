@@ -29,6 +29,7 @@ public static class MauiProgram
         builder.Services.AddTransient<CreateAccountViewModel>();
         builder.Services.AddTransient<TodayViewModel>();
         builder.Services.AddTransient<RiskExplanationViewModel>();
+        builder.Services.AddTransient<LogViewModel>();
 
         // Pages
         builder.Services.AddTransient<SignInPage>();

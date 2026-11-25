@@ -1,12 +1,117 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Tanaffas.Views.LogPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="السجل">
+    xmlns:vm="clr-namespace:Tanaffas.ViewModels"
+    Title="السجل"
+    Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="24" Spacing="16">
-        <Label Style="{StaticResource Heading}" Text="السجل" />
-        <Label Text="Placeholder: this page is added in its own commit." />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="12">
+            <Label Style="{StaticResource Heading}" Text="تسجيل قياس جديد" />
+            <Label Style="{StaticResource Muted}" Text="سجّل قراءاتك للحفاظ على استقرار خطتك العلاجية" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                <Button Style="{StaticResource SegButton}" Text="جرعة منظِّمة" Command="{Binding SelectControllerCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsReliever}" Value="False">
+                            <Setter Property="BackgroundColor" Value="{StaticResource TnfPrimary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Column="1" Style="{StaticResource SegButton}" Text="جرعة إسعافية" Command="{Binding SelectRelieverCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsReliever}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource TnfPrimary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="تسجيل جرعة مع هذا القياس" VerticalOptions="Center" />
+                <Switch Grid.Column="1" IsToggled="{Binding RecordDose}" OnColor="{StaticResource TnfPrimary}" />
+            </Grid>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="القياسات الحيوية" />
+
+                    <Label Style="{StaticResource FieldLabel}" Text="ذروة التدفق (L/min)" />
+                    <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
+                        <Entry Text="{Binding PeakFlow}" Keyboard="Numeric" Placeholder="340" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Style="{StaticResource FieldLabel}" Text="الأكسجين %" />
+                            <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
+                                <Entry Text="{Binding Spo2}" Keyboard="Numeric" Placeholder="96" />
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Style="{StaticResource FieldLabel}" Text="النبض" />
+                            <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
+                                <Entry Text="{Binding Pulse}" Keyboard="Numeric" Placeholder="88" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="الأعراض الحالية" />
+                    <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Symptoms}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource Chip}">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource TnfMint}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                            Command="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type vm:LogViewModel}}, Path=ToggleChipCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="{Binding Name}" FontFamily="PlexMedium" />
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="المحفزات المحتملة اليوم" />
+                    <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Triggers}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource Chip}">
+                                    <Border.Triggers>
+                                        <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource TnfMint}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                            Command="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type vm:LogViewModel}}, Path=ToggleChipCommand}" />
+                                    </Border.GestureRecognizers>
+                                    <Label Text="{Binding Name}" FontFamily="PlexMedium" />
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                    <Button Style="{StaticResource SegButton}" Text="+ إضافة محفز" Command="{Binding AddTriggerCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Style="{StaticResource PrimaryButton}" Text="حفظ السجل" Command="{Binding SaveCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+
