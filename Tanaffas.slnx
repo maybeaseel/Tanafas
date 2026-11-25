@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="Tanaffas.csproj" />
+  <Project Path="Tanaffas.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

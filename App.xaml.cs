@@ -1,4 +1,4 @@
-﻿namespace Tanaffas;
+namespace Tanaffas;
 
 public partial class App : Application
 {
@@ -12,4 +12,3 @@ public partial class App : Application
         return new Window(new AppShell());
     }
 }
-

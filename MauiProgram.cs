@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Tanaffas.Services;
 using Tanaffas.ViewModels;
 using Tanaffas.Views;
@@ -27,6 +27,7 @@ public static class MauiProgram
         // ViewModels (one per page, added page by page)
         builder.Services.AddTransient<SignInViewModel>();
         builder.Services.AddTransient<CreateAccountViewModel>();
+        builder.Services.AddTransient<TodayViewModel>();
 
         // Pages
         builder.Services.AddTransient<SignInPage>();
@@ -44,4 +45,3 @@ public static class MauiProgram
         return builder.Build();
     }
 }
-

@@ -1,13 +1,99 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Tanaffas.Views.TodayPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="اليوم">
+    Title="اليوم"
+    Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="24" Spacing="16">
-        <Label Style="{StaticResource Heading}" Text="اليوم" />
-        <Label Text="Placeholder: this page is added in its own commit." />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="14">
+            <VerticalStackLayout>
+                <Label Style="{StaticResource Heading}" Text="{Binding Greeting}" />
+                <Label Style="{StaticResource Muted}" Text="{Binding DateText}" />
+            </VerticalStackLayout>
+
+            <!-- Risk zone card -->
+            <Border Style="{StaticResource Card}"
+                    BackgroundColor="{StaticResource TnfAmberBg}">
+                <VerticalStackLayout Spacing="8">
+                    <Label FontFamily="PlexBold" FontSize="18" Text="{Binding ZoneTitle}"
+                           TextColor="{StaticResource TnfAmber}" />
+                    <Label Text="{Binding ZoneSummary}" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding Reasons}" Spacing="4">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding ., StringFormat='• {0}'}" FontFamily="PlexMedium" />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                    <Label Style="{StaticResource LinkLabel}" Text="لماذا؟">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding WhyCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Style="{StaticResource FieldLabel}" FontSize="18" Text="المؤشرات اليومية" />
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Style="{StaticResource Muted}" Text="الجرعات" />
+                        <Label Text="{Binding ControllerText, StringFormat='منظِّمة: {0}'}" FontFamily="PlexSemiBold" FontSize="16" />
+                        <Label Text="{Binding RelieverText, StringFormat='إسعافية: {0}'}" FontFamily="PlexSemiBold" FontSize="16"
+                               TextColor="{StaticResource TnfAmber}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Style="{StaticResource Muted}" Text="ذروة التدفق (L/min)" />
+                        <Label Text="{Binding PeakFlowText}" FontFamily="PlexBold" FontSize="28" />
+                        <ProgressBar Progress="{Binding PeakProgress}" ProgressColor="{StaticResource TnfPrimary}" />
+                        <Label Style="{StaticResource Muted}" Text="{Binding PeakPercentText}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Style="{StaticResource Muted}" Text="الأكسجين والنبض" />
+                        <Label Text="{Binding OxygenText, StringFormat='SpO2  {0}'}" FontFamily="PlexBold" FontSize="18" />
+                        <Label Text="{Binding PulseText, StringFormat='النبض  {0}'}" FontFamily="PlexBold" FontSize="18" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Style="{StaticResource Muted}" Text="جودة الهواء" />
+                        <Label Text="{Binding AirTitle}" FontFamily="PlexBold" FontSize="16">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{Binding AirAlert}" Value="True">
+                                    <Setter Property="TextColor" Value="{StaticResource TnfAmber}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label Style="{StaticResource Muted}" Text="{Binding AirDetail}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Style="{StaticResource Muted}" Text="الالتزام بالدواء (30 يومًا)" />
+                        <Label Text="{Binding AdherenceText}" FontFamily="PlexBold" FontSize="28" TextColor="{StaticResource TnfGreen}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Style="{StaticResource Muted}" Text="الاستقرار في المنطقة الخضراء" />
+                        <Label Text="{Binding StableText}" FontFamily="PlexBold" FontSize="22" TextColor="{StaticResource TnfGreen}" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Button Style="{StaticResource PrimaryButton}" Text="إضافة سجل طبي جديد" Command="{Binding AddLogCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
-

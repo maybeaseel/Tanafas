@@ -1,4 +1,4 @@
-﻿using Tanaffas.ViewModels;
+using Tanaffas.ViewModels;
 
 namespace Tanaffas.Views;
 
@@ -10,4 +10,3 @@ public partial class SignInPage : ContentPage
         BindingContext = vm;
     }
 }
-

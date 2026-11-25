@@ -74,9 +74,18 @@
 
 	<ItemGroup>
 	  <Folder Include="Drawables\" />
+	  <Folder Include="Resources\Resources\Images\" />
+	  <Folder Include="Resources\Resources\Styles\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include=".github\copilot-instructions.md" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\AppColors.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\AppStyles.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

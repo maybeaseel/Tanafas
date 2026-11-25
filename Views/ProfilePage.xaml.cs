@@ -1,4 +1,4 @@
-﻿namespace Tanaffas.Views;
+namespace Tanaffas.Views;
 
 public partial class ProfilePage : ContentPage
 {
@@ -7,4 +7,3 @@ public partial class ProfilePage : ContentPage
         InitializeComponent();
     }
 }
-

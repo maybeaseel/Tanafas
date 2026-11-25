@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Tanaffas.Services;
 
@@ -20,4 +20,3 @@ public partial class SignInViewModel : ObservableObject
     [RelayCommand] private Task GoToRegisterAsync() => _nav.GoToAsync("//register");
     [RelayCommand] private void TogglePassword() => IsPasswordHidden = !IsPasswordHidden;
 }
-

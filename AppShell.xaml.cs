@@ -1,4 +1,4 @@
-﻿using Tanaffas.Views;
+using Tanaffas.Views;
 
 namespace Tanaffas;
 
@@ -12,4 +12,3 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("risk", typeof(RiskExplanationPage));
     }
 }
-

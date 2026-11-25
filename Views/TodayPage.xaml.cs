@@ -1,10 +1,12 @@
-﻿namespace Tanaffas.Views;
+using Tanaffas.ViewModels;
+
+namespace Tanaffas.Views;
 
 public partial class TodayPage : ContentPage
 {
-    public TodayPage()
+    public TodayPage(TodayViewModel vm)
     {
         InitializeComponent();
+        BindingContext = vm;
     }
 }
-

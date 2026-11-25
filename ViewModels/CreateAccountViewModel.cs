@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Tanaffas.Services;
 
@@ -29,4 +29,3 @@ public partial class CreateAccountViewModel : ObservableObject
     [RelayCommand] private Task CreateAsync() => _nav.GoToAsync("//main/today");
     [RelayCommand] private Task GoToSignInAsync() => _nav.GoToAsync("//signin");
 }
-
