@@ -1,12 +1,54 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Tanaffas.Views.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="حسابي">
+    Title="حسابي"
+    Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="24" Spacing="16">
-        <Label Style="{StaticResource Heading}" Text="حسابي" />
-        <Label Text="Placeholder: this page is added in its own commit." />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="14">
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Style="{StaticResource Heading}" Text="{Binding FullName}" />
+                    <Label Style="{StaticResource Muted}" Text="{Binding Email}" />
+                    <Label Style="{StaticResource Muted}" Text="بياناتك محفوظة على هاتفك فقط" Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="إعدادات الخطة والتطبيق" />
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout>
+                            <Label FontFamily="PlexSemiBold" Text="تذكير الجرعة" />
+                            <Label Style="{StaticResource Muted}" Text="يتم حفظ الوقت، والإشعار الفعلي غير مفعّل في هذا الإصدار" />
+                        </VerticalStackLayout>
+                        <TimePicker Grid.Column="1" Time="{Binding ReminderTime}" TextColor="{StaticResource TnfPrimary}" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout>
+                            <Label FontFamily="PlexSemiBold" Text="حدود المناطق" />
+                            <Label Style="{StaticResource Muted}" Text="أفضل قراءة لذروة التدفق" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1" Style="{StaticResource LinkLabel}" Text="{Binding BestText}" VerticalOptions="Center" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="مشاركة التقرير الطبي" />
+                    <Button Style="{StaticResource SegButton}" Text="تصدير ملخص للطبيب" />
+                    <Label Style="{StaticResource Muted}" Text="ملخص نصي لآخر 14 يومًا يحتوي على متوسط ذروة التدفق واستهلاك البخاخ الإسعافي وأبرز المحفزات." />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Style="{StaticResource PrimaryButton}" Text="تسجيل الخروج" Command="{Binding SignOutCommand}" />
+            <Label Style="{StaticResource Muted}" Text="تنفـــس • إصدار 1.0.0" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+
