@@ -73,7 +73,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Drawables\" />
 	  <Folder Include="Resources\Resources\Images\" />
 	  <Folder Include="Resources\Resources\Styles\" />
 	</ItemGroup>

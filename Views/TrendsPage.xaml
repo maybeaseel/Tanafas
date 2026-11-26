@@ -1,12 +1,84 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Tanaffas.Views.TrendsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="الاتجاهات">
+    Title="الاتجاهات"
+    Shell.NavBarIsVisible="False">
 
-    <VerticalStackLayout Padding="24" Spacing="16">
-        <Label Style="{StaticResource Heading}" Text="الاتجاهات" />
-        <Label Text="Placeholder: this page is added in its own commit." />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="14">
+            <Label Style="{StaticResource Heading}" Text="الاتجاهات والتقارير" />
+            <Label Style="{StaticResource Muted}" Text="متابعة نمط التنفس والعوامل المؤثرة على مدار الوقت" />
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                <Button Style="{StaticResource SegButton}" Text="7 أيام" CommandParameter="7" Command="{Binding SelectPeriodCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Is7}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource TnfPrimary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Column="1" Style="{StaticResource SegButton}" Text="14 يوم" CommandParameter="14" Command="{Binding SelectPeriodCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Is14}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource TnfPrimary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Column="2" Style="{StaticResource SegButton}" Text="30 يوم" CommandParameter="30" Command="{Binding SelectPeriodCommand}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding Is30}" Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource TnfPrimary}" />
+                            <Setter Property="TextColor" Value="White" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="ذروة التدفق (L/min)" />
+                        <Label Grid.Column="1" FontFamily="PlexBold" Text="{Binding AverageText}" TextColor="{StaticResource TnfAmber}" />
+                    </Grid>
+                    <Label Style="{StaticResource Muted}" Text="المتوسط خلال الفترة" />
+                    <GraphicsView x:Name="PeakView" Drawable="{Binding PeakChart}" HeightRequest="180" />
+                    <Label Text="{Binding ChangeText}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="8">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="الجرعات الإسعافية يوميًا" />
+                        <Label Grid.Column="1" FontFamily="PlexBold" Text="{Binding RelieverAverageText}" TextColor="{StaticResource TnfPrimary}" />
+                    </Grid>
+                    <GraphicsView x:Name="RelieverView" Drawable="{Binding RelieverChart}" HeightRequest="140" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="أبرز المحفزات المسجلة" />
+                    <VerticalStackLayout BindableLayout.ItemsSource="{Binding TopTriggers}" Spacing="10">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout Spacing="4">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Text="{Binding Name}" FontFamily="PlexSemiBold" />
+                                        <Label Grid.Column="1" Text="{Binding PercentText}" FontFamily="PlexBold" />
+                                    </Grid>
+                                    <ProgressBar Progress="{Binding Progress}" ProgressColor="{StaticResource TnfPrimary}" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+
