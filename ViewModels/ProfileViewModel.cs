@@ -10,8 +10,8 @@ public partial class ProfileViewModel : ObservableObject
 
     public ProfileViewModel(IAppNavigator nav) => _nav = nav;
 
-    public string FullName => "سلمى العبدالله";
-    public string Email => "salma@example.com";
+    public string FullName => "Jane doe";
+    public string Email => "Jane@example.com";
     public string BestText => "500 L/min";
 
     [ObservableProperty] private TimeSpan reminderTime = new(8, 0, 0);

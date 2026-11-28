@@ -21,10 +21,11 @@ public static class MauiProgram
                 fonts.AddFont("IBMPlexSansArabic-Bold.ttf", "PlexBold");
             });
 
-        // Navigation service (dependency injection). ViewModels use the interface, not Shell directly.
+        // Navigation service (dependency injection). ViewModels use the interface, not Shell directly. When somebody requests an IAppNavigator, provide an instance of ShellAppNavigator, and reuse that instance.
         builder.Services.AddSingleton<IAppNavigator, ShellAppNavigator>();
+        builder.Services.AddSingleton<IDialogService, DialogService>();
 
-        // ViewModels (one per page, added page by page)
+        // ViewModels (one per page)
         builder.Services.AddTransient<SignInViewModel>();
         builder.Services.AddTransient<CreateAccountViewModel>();
         builder.Services.AddTransient<TodayViewModel>();

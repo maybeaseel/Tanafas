@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="Tanaffas.Views.LogPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -30,10 +30,6 @@
                     </Button.Triggers>
                 </Button>
             </Grid>
-            <Grid ColumnDefinitions="*,Auto">
-                <Label Text="تسجيل جرعة مع هذا القياس" VerticalOptions="Center" />
-                <Switch Grid.Column="1" IsToggled="{Binding RecordDose}" OnColor="{StaticResource TnfPrimary}" />
-            </Grid>
 
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="8">
@@ -41,21 +37,27 @@
 
                     <Label Style="{StaticResource FieldLabel}" Text="ذروة التدفق (L/min)" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding PeakFlow}" Keyboard="Numeric" Placeholder="340" />
+                        <Entry Text="{Binding PeakFlow}" Keyboard="Numeric" MaxLength="3" Placeholder="340" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding PeakFlowError}"
+                           IsVisible="{Binding PeakFlowError, Converter={StaticResource NotEmpty}}" />
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                         <VerticalStackLayout Spacing="6">
                             <Label Style="{StaticResource FieldLabel}" Text="الأكسجين %" />
                             <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                                <Entry Text="{Binding Spo2}" Keyboard="Numeric" Placeholder="96" />
+                                <Entry Text="{Binding Spo2}" Keyboard="Numeric" MaxLength="3" Placeholder="96" />
                             </Border>
+                            <Label Style="{StaticResource ErrorLabel}" Text="{Binding Spo2Error}"
+                                   IsVisible="{Binding Spo2Error, Converter={StaticResource NotEmpty}}" />
                         </VerticalStackLayout>
                         <VerticalStackLayout Grid.Column="1" Spacing="6">
                             <Label Style="{StaticResource FieldLabel}" Text="النبض" />
                             <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                                <Entry Text="{Binding Pulse}" Keyboard="Numeric" Placeholder="88" />
+                                <Entry Text="{Binding Pulse}" Keyboard="Numeric" MaxLength="3" Placeholder="88" />
                             </Border>
+                            <Label Style="{StaticResource ErrorLabel}" Text="{Binding PulseError}"
+                                   IsVisible="{Binding PulseError, Converter={StaticResource NotEmpty}}" />
                         </VerticalStackLayout>
                     </Grid>
                 </VerticalStackLayout>
@@ -64,44 +66,51 @@
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="8">
                     <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="الأعراض الحالية" />
+                    <Label Style="{StaticResource Muted}" Text="اضغط على الخيار لتحديده أو إلغاء تحديده" />
                     <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Symptoms}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource Chip}">
+                                <Border Style="{StaticResource Chip}" MinimumHeightRequest="44">
                                     <Border.Triggers>
                                         <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
                                             <Setter Property="BackgroundColor" Value="{StaticResource TnfMint}" />
                                         </DataTrigger>
                                     </Border.Triggers>
                                     <Border.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                            Command="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type vm:LogViewModel}}, Path=ToggleChipCommand}" />
+                                        <TapGestureRecognizer Command="{Binding ToggleCommand}" />
                                     </Border.GestureRecognizers>
-                                    <Label Text="{Binding Name}" FontFamily="PlexMedium" />
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Label Text="✓" IsVisible="{Binding IsSelected}" FontFamily="PlexBold" TextColor="{StaticResource TnfPrimary}" VerticalOptions="Center" />
+                                        <Label Text="{Binding Name}" FontFamily="PlexMedium" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
                                 </Border>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
                     </FlexLayout>
+                    <Button Style="{StaticResource SegButton}" Text="+ إضافة عرض" Command="{Binding AddSymptomCommand}" />
                 </VerticalStackLayout>
             </Border>
 
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="8">
                     <Label Style="{StaticResource FieldLabel}" FontSize="16" Text="المحفزات المحتملة اليوم" />
+                    <Label Style="{StaticResource Muted}" Text="اضغط على الخيار لتحديده أو إلغاء تحديده" />
                     <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Triggers}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource Chip}">
+                                <Border Style="{StaticResource Chip}" MinimumHeightRequest="44">
                                     <Border.Triggers>
                                         <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
                                             <Setter Property="BackgroundColor" Value="{StaticResource TnfMint}" />
                                         </DataTrigger>
                                     </Border.Triggers>
                                     <Border.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}"
-                                            Command="{Binding Source={RelativeSource Mode=FindAncestor, AncestorType={x:Type vm:LogViewModel}}, Path=ToggleChipCommand}" />
+                                        <TapGestureRecognizer Command="{Binding ToggleCommand}" />
                                     </Border.GestureRecognizers>
-                                    <Label Text="{Binding Name}" FontFamily="PlexMedium" />
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Label Text="✓" IsVisible="{Binding IsSelected}" FontFamily="PlexBold" TextColor="{StaticResource TnfPrimary}" VerticalOptions="Center" />
+                                        <Label Text="{Binding Name}" FontFamily="PlexMedium" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
                                 </Border>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
@@ -111,7 +120,7 @@
             </Border>
 
             <Button Style="{StaticResource PrimaryButton}" Text="حفظ السجل" Command="{Binding SaveCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource TnfPrimary}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
-

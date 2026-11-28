@@ -17,18 +17,24 @@
 
                     <Label Style="{StaticResource FieldLabel}" Text="الاسم الأول" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding FirstName}" />
+                        <Entry Text="{Binding FirstName}" MaxLength="40" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding FirstNameError}"
+                           IsVisible="{Binding FirstNameError, Converter={StaticResource NotEmpty}}" />
 
                     <Label Style="{StaticResource FieldLabel}" Text="اسم العائلة" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding FamilyName}" />
+                        <Entry Text="{Binding FamilyName}" MaxLength="40" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding FamilyNameError}"
+                           IsVisible="{Binding FamilyNameError, Converter={StaticResource NotEmpty}}" />
 
                     <Label Style="{StaticResource FieldLabel}" Text="العمر" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding Age}" Keyboard="Numeric" />
+                        <Entry Text="{Binding Age}" MaxLength="3" Keyboard="Numeric" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding AgeError}"
+                           IsVisible="{Binding AgeError, Converter={StaticResource NotEmpty}}" />
 
                     <Label Style="{StaticResource FieldLabel}" Text="الجنس" />
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
@@ -52,9 +58,11 @@
 
                     <Label Style="{StaticResource FieldLabel}" Text="أفضل قراءة لذروة التدفق (L/min)" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding PersonalBest}" Keyboard="Numeric" />
+                        <Entry Text="{Binding PersonalBest}" MaxLength="3" Keyboard="Numeric" />
                     </Border>
                     <Label Style="{StaticResource Muted}" Text="تستخدم لحساب مناطقك (الخضراء والصفراء والحمراء) بدقة." />
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding PersonalBestError}"
+                           IsVisible="{Binding PersonalBestError, Converter={StaticResource NotEmpty}}" />
                 </VerticalStackLayout>
             </Border>
 
@@ -64,39 +72,47 @@
 
                     <Label Style="{StaticResource FieldLabel}" Text="اسم الطبيب المعالج (اختياري)" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding DoctorName}" />
+                        <Entry Text="{Binding DoctorName}" MaxLength="60" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding DoctorNameError}"
+                           IsVisible="{Binding DoctorNameError, Converter={StaticResource NotEmpty}}" />
 
                     <Label Style="{StaticResource FieldLabel}" Text="البريد الإلكتروني لولي الأمر أو الطوارئ (اختياري)" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding EmergencyEmail}" Keyboard="Email" />
+                        <Entry Text="{Binding EmergencyEmail}" MaxLength="80" Keyboard="Email" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding EmergencyEmailError}"
+                           IsVisible="{Binding EmergencyEmailError, Converter={StaticResource NotEmpty}}" />
 
                     <Label Style="{StaticResource FieldLabel}" Text="البريد الإلكتروني للحساب" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
-                        <Entry Text="{Binding Email}" Keyboard="Email" />
+                        <Entry Text="{Binding Email}" MaxLength="80" Keyboard="Email" />
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding EmailError}"
+                           IsVisible="{Binding EmailError, Converter={StaticResource NotEmpty}}" />
 
                     <Label Style="{StaticResource FieldLabel}" Text="كلمة المرور" />
                     <Border Style="{StaticResource Field}" BackgroundColor="{StaticResource TnfBackground}">
                         <Grid ColumnDefinitions="*,Auto">
-                            <Entry Text="{Binding Password}" IsPassword="{Binding IsPasswordHidden}" />
+                            <Entry Text="{Binding Password}" MaxLength="64" IsPassword="{Binding IsPasswordHidden}" />
                             <Button Grid.Column="1" Text="إظهار" BackgroundColor="Transparent"
                                     TextColor="{StaticResource TnfPrimary}" Command="{Binding TogglePasswordCommand}" />
                         </Grid>
                     </Border>
+                    <Label Style="{StaticResource ErrorLabel}" Text="{Binding PasswordError}"
+                           IsVisible="{Binding PasswordError, Converter={StaticResource NotEmpty}}" />
                 </VerticalStackLayout>
             </Border>
-            <Button Style="{StaticResource PrimaryButton}" Text="إنشاء الحساب والمتابعة" Command="{Binding CreateCommand}" />
 
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
-                <Label Text="لديك حساب بالفعل؟" VerticalOptions="Center" />
-                <Label Style="{StaticResource LinkLabel}" Text="تسجيل الدخول" VerticalOptions="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToSignInCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </HorizontalStackLayout>
+            <Button Style="{StaticResource PrimaryButton}" Text="إنشاء الحساب والمتابعة" Command="{Binding CreateCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource TnfPrimary}" />
+
+            <VerticalStackLayout Spacing="0" Margin="0,16,0,0">
+                <Label Text="لديك حساب بالفعل؟" HorizontalOptions="Center" />
+                <Button Text="تسجيل الدخول" BackgroundColor="Transparent" TextColor="{StaticResource TnfPrimary}"
+                        FontFamily="PlexSemiBold" HeightRequest="48" HorizontalOptions="Center"
+                        Command="{Binding GoToSignInCommand}" />
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

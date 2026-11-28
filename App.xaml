@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Tanaffas"
+             xmlns:helpers="clr-namespace:Tanaffas.Helpers"
              x:Class="Tanaffas.App">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="Resources/Styles/AppColors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/AppStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <helpers:NotEmptyConverter x:Key="NotEmpty" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

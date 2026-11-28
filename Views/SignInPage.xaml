@@ -16,8 +16,10 @@
 
             <Label Style="{StaticResource FieldLabel}" Text="البريد الإلكتروني" Margin="0,12,0,0" />
             <Border Style="{StaticResource Field}">
-                <Entry Text="{Binding Email}" Keyboard="Email" Placeholder="name@example.com" />
+                <Entry Text="{Binding Email}" Keyboard="Email" MaxLength="80" Placeholder="name@example.com" />
             </Border>
+            <Label Style="{StaticResource ErrorLabel}" Text="{Binding EmailError}"
+                   IsVisible="{Binding EmailError, Converter={StaticResource NotEmpty}}" />
 
             <Label Style="{StaticResource FieldLabel}" Text="كلمة المرور" />
             <Border Style="{StaticResource Field}">
@@ -27,26 +29,20 @@
                             TextColor="{StaticResource TnfPrimary}" Command="{Binding TogglePasswordCommand}" />
                 </Grid>
             </Border>
+            <Label Style="{StaticResource ErrorLabel}" Text="{Binding PasswordError}"
+                   IsVisible="{Binding PasswordError, Converter={StaticResource NotEmpty}}" />
 
-            <Grid ColumnDefinitions="*,Auto">
-                <HorizontalStackLayout>
-                    <CheckBox IsChecked="{Binding RememberMe}" Color="{StaticResource TnfPrimary}" />
-                    <Label Text="تذكرني" VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <Label Grid.Column="1" Style="{StaticResource LinkLabel}" Text="نسيت كلمة المرور؟" VerticalOptions="Center">
-                </Label>
-            </Grid>
+            <Label Style="{StaticResource LinkLabel}" Text="نسيت كلمة المرور؟" HorizontalOptions="End" />
 
             <Button Style="{StaticResource PrimaryButton}" Text="تسجيل الدخول" Command="{Binding SignInCommand}" Margin="0,8,0,0" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource TnfPrimary}" />
 
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="6" Margin="0,24,0,0">
-                <Label Text="ليس لديك حساب؟" VerticalOptions="Center" />
-                <Label Style="{StaticResource LinkLabel}" Text="إنشاء حساب جديد" VerticalOptions="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToRegisterCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </HorizontalStackLayout>
+            <VerticalStackLayout Spacing="0" Margin="0,16,0,0">
+                <Label Text="ليس لديك حساب؟" HorizontalOptions="Center" />
+                <Button Text="إنشاء حساب جديد" BackgroundColor="Transparent" TextColor="{StaticResource TnfPrimary}"
+                        FontFamily="PlexSemiBold" HeightRequest="48" HorizontalOptions="Center"
+                        Command="{Binding GoToRegisterCommand}" />
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

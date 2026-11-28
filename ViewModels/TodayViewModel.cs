@@ -16,7 +16,7 @@ public partial class TodayViewModel
         DateText = FormatDate(DateTime.Now);
     }
 
-    public string Greeting => "مرحباً، سلمى";
+    public string Greeting => "مرحباً، جين دو";
     public string DateText { get; }
 
     public string ZoneTitle => "المنطقة الصفراء • انتبه";
